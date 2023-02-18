@@ -33,6 +33,9 @@ public class HelloController {
 
 	@GetMapping(value = "/cars")
 	public String showExactNumberOfCars(@RequestParam(value = "count", required = false, defaultValue = "5") int count, Model model) {
+		if (count < 0) {
+			count = 5;
+		}
 		List<Car> carsList = carService.getCarList(count);
 		model.addAttribute("carsList", carsList);
 		return "cars";
